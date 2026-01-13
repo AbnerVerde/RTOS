@@ -1,0 +1,62 @@
+[System]
+Name='RTOs_Final'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=2
+NumRules=12
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='Error temperatura '
+Range=[-100 100]
+NumMFs=3
+MF1='Caliente':'linzmf',[-20 -10]
+MF2='Z':'trimf',[-15 0 15]
+MF3='Frio':'linsmf',[10 20]
+
+[Input2]
+Name='Humedad'
+Range=[0 100]
+NumMFs=4
+MF1='Cero':'trimf',[0 0 0]
+MF2='Poco':'trapmf',[0.01 0.01 14 30]
+MF3='Medio':'trimf',[23 48 65]
+MF4='Alto':'smf',[55 70]
+
+[Output1]
+Name='Calentar'
+Range=[0 255]
+NumMFs=4
+MF1='Apagado':'trimf',[0 0 0]
+MF2='Bajo':'trimf',[0.01 70 120]
+MF3='MedioT':'trimf',[100 127.5 160]
+MF4='Encendido':'smf',[140 255]
+
+[Output2]
+Name='ventilador'
+Range=[0 255]
+NumMFs=5
+MF1='VSlow':'linzmf',[30 50]
+MF2='Slow':'trimf',[40 70 100]
+MF3='Med':'trimf',[90 127.5 150]
+MF4='Fast':'trimf',[140 170 200]
+MF5='VFast':'linsmf',[180 200]
+
+[Rules]
+1 1, 1 3 (1) : 1
+1 2, 1 3 (1) : 1
+1 3, 1 4 (1) : 1
+1 4, 1 5 (1) : 1
+2 1, 1 0 (1) : 1
+2 2, 1 2 (1) : 1
+2 3, 1 4 (1) : 1
+2 4, 1 5 (1) : 1
+3 1, 4 4 (1) : 1
+3 2, 4 4 (1) : 1
+3 3, 4 5 (1) : 1
+3 4, 4 5 (1) : 1
